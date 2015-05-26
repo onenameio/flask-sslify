@@ -8,7 +8,8 @@ YEAR_IN_SECS = 31536000
 class SSLify(object):
     """Secures your Flask App."""
 
-    def __init__(self, app=None, age=YEAR_IN_SECS, subdomains=False, permanent=False, skips=None):
+    def __init__(self, app=None, age=YEAR_IN_SECS, subdomains=False,
+                 permanent=False, skips=None):
         self.app = app or current_app
         self.hsts_age = age
 
@@ -16,7 +17,8 @@ class SSLify(object):
         self.app.config.setdefault('SSLIFY_PERMANENT', False)
         self.app.config.setdefault('SSLIFY_SKIPS', None)
 
-        self.hsts_include_subdomains = subdomains or self.app.config['SSLIFY_SUBDOMAINS']
+        self.hsts_include_subdomains = (
+            subdomains or self.app.config['SSLIFY_SUBDOMAINS'])
         self.permanent = permanent or self.app.config['SSLIFY_PERMANENT']
         self.skip_list = skips or self.app.config['SSLIFY_SKIPS']
 
@@ -42,7 +44,7 @@ class SSLify(object):
     def skip(self):
         """Checks the skip list."""
         # Should we skip?
-        if self.skip_list and isinstance(self.skip_list, list): 
+        if self.skip_list and isinstance(self.skip_list, list):
             for skip in self.skip_list:
                 if request.path.startswith('/{0}'.format(skip)):
                     return True
@@ -70,5 +72,6 @@ class SSLify(object):
         """Adds HSTS header to each response."""
         # Should we add STS header?
         if request.is_secure and not self.skip:
-            response.headers.setdefault('Strict-Transport-Security', self.hsts_header)
+            response.headers.setdefault(
+                'Strict-Transport-Security', self.hsts_header)
         return response

@@ -2,8 +2,8 @@
 Flask-SSLify
 ------------
 
-This is a simple Flask extension that configures your Flask application to redirect
-all incoming requests to ``https``.
+This is a simple Flask extension that configures your Flask application to
+redirect all incoming requests to ``https``.
 
 Redirects only occur when ``app.debug`` is ``False``.
 """
@@ -19,7 +19,9 @@ setup(
     author_email='me@kennethreitz.com',
     description='Force SSL on your Flask app.',
     long_description=__doc__,
-    py_modules=['flask_sslify'],
+    py_modules=[
+        'flask_sslify',
+    ],
     zip_safe=False,
     include_package_data=True,
     platforms='any',
