@@ -2,13 +2,13 @@
 
 from flask import request, redirect, current_app
 
-YEAR_IN_SECS = 31536000
+SECONDS_PER_YEAR = int(60*60*24*365)
 
 
 class SSLify(object):
     """Secures your Flask App."""
 
-    def __init__(self, app=None, age=YEAR_IN_SECS, subdomains=False,
+    def __init__(self, app=None, age=SECONDS_PER_YEAR, subdomains=False,
                  permanent=False, skips=None):
         self.app = app or current_app
         self.hsts_age = age
